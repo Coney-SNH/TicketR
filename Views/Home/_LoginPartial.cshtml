@@ -1,0 +1,23 @@
+@using Ticketr.Models;
+@model LogUser;
+<div class="login"  style="text-align: Center;">
+    <h3>Login</h3>
+    <form asp-action="login" asp-controller="home" method="post">
+        <span asp-validation-for="LoginEmail"></span>
+        </br>
+        <label asp-for="LoginEmail"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="LoginEmail">
+        </br>
+        <span asp-validation-for="LoginPassword"></span>
+        </br>
+        <label asp-for="LoginPassword"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="LoginPassword">
+        </br>
+        <input type="submit" value="Login">
+    </form>
+
+</div>

@@ -1,0 +1,25 @@
+@model Event
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> </p>
+            <h1 style="text-align: center;">Details for @Model.EventName</h1>
+            <p>Event code: @Model.EventCode</p>
+            <p>Price map for Event: @Model.PriceMap</p>
+            <p>Start date of Event: @Model.StartDate.ToString("MM/dd/yyyy")</p>
+            <p>End date of Event: @Model.EndDate.ToString("MM/dd/yyyy")</p>
+            <a asp-action="Edit" asp-controller="Event" asp-route-EventId="@Model.EventId">Edit</a>
+
+            <p>We should see a table of all available Series related to this event</p>
+        </div>
+    </div>
+</body>
+</html>

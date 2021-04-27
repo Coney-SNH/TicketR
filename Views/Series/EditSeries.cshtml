@@ -1,0 +1,94 @@
+@model Series
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> </p>
+                <form asp-action="DeleteSeries" asp-controller="Series" asp-route-SeriesId="@Model.SeriesId" style="margin-left: 650px" method="Post">
+                    <input type="submit" value="Delete Series">
+                </form>
+            <h3>Edit this Series</h3>
+            <form asp-action="UpdateSeries" asp-controller="Series" method="post" style="display: inline-block; margin-right: 100px; width: 200px;">
+                <span asp-validation-for="RelatedEventCode"></span>
+                </br>
+                <label asp-for="RelatedEventCode"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="RelatedEventCode" value="@Model.Event.EventCode">
+                </br>
+                <span asp-validation-for="SeriesName"></span>
+                </br>
+                <label asp-for="SeriesName"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="SeriesName">
+                </br>
+                <span asp-validation-for="SeriesDate"></span>
+                </br>
+                <label asp-for="SeriesDate"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="SeriesDate">
+                </br>
+                <span asp-validation-for="SeriesTime"></span>
+                </br>
+                <label asp-for="SeriesTime"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="SeriesTime">
+                </br>
+                <span asp-validation-for="TicketsAvailable"></span>
+                </br>
+                <label asp-for="TicketsAvailable"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="TicketsAvailable">
+                </br>
+                <span asp-validation-for="SeriesVenue"></span>
+                </br>
+                <label asp-for="SeriesVenue"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="SeriesVenue">
+                </br>
+                <span asp-validation-for="TicketPrice"></span>
+                </br>
+                <label asp-for="TicketPrice"></label>
+                <span>: </span>
+                </br>
+                <input asp-for="TicketPrice">
+                </br>
+                </br>
+                <input type="submit" value="Update Event">
+            </form>
+            <table class="table" style="display: inline-block; vertical-align:top; width: 500px;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Event Code</th>
+                        <th scope="col">Starting Date</th>
+                        <th scope="col">Event Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.UpcomingEvents)
+                    {
+                        <tr>
+                            <td>@item.EventCode</td>
+                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
+                            <td>@item.EventName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

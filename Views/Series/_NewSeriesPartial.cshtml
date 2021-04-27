@@ -1,0 +1,57 @@
+@using Ticketr.Models;
+@model Series;
+<h3>Create a new Series</h3>
+<form asp-action="CreateNewSeries" asp-controller="Series" method="post" style="display: inline-block; margin-right: 100px; width: 200px;">
+    <span asp-validation-for="RelatedEventCode"></span>
+    </br>
+    <label asp-for="RelatedEventCode"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="RelatedEventCode">
+    </br>
+    <span asp-validation-for="SeriesName"></span>
+    </br>
+    <label asp-for="SeriesName"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="SeriesName">
+    </br>
+    <span asp-validation-for="SeriesDate"></span>
+    </br>
+    <label asp-for="SeriesDate"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="SeriesDate">
+    </br>
+    <span asp-validation-for="SeriesTime"></span>
+    </br>
+    <label asp-for="SeriesTime"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="SeriesTime">
+    </br>
+    <span asp-validation-for="TicketsAvailable"></span>
+    </br>
+    <label asp-for="TicketsAvailable"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="TicketsAvailable">
+    </br>
+    <span asp-validation-for="SeriesVenue"></span>
+    </br>
+    <label asp-for="SeriesVenue"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="SeriesVenue">
+    </br>
+    <span asp-validation-for="TicketPrice"></span>
+    </br>
+    <label asp-for="TicketPrice"></label>
+    <span>: </span>
+    </br>
+    <input asp-for="TicketPrice">
+    </br>
+    </br>
+    <input type="submit" value="Create Event">
+</form>
+

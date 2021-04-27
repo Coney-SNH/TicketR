@@ -1,0 +1,30 @@
+@model Series
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> </p>
+            <h1 style="text-align: center;">Details for @Model.SeriesName</h1>
+            <p>Related Event: @Model.Event.EventName</p>
+            <p>Series Date and Time: @Model.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</p>
+            <p>Ticket Price: $@Math.Round(Model.TicketPrice,2)</p>
+            <p>Tickets sold so far: @Model.TicketsSold</p>
+            <p>Tickets Available: @Model.TicketsAvailable</p>
+            <p>Base price: $@Math.Round(Model.BasePrice,2)</p>
+            <p>Total discounts: $@Math.Round(Model.TotalDiscounts,2)</p>
+            <p>Total Net Sales: $@Math.Round(Model.NetSales, 2)</p>
+            <a asp-action="EditSeries" asp-controller="Series" asp-route-SeriesId="@Model.SeriesId">Edit</a>
+
+            <p>This is where we'll have the list of patrons attending this series</p>
+        </div>
+    </div>
+
+</body>
+</html>

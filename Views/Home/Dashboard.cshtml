@@ -1,0 +1,46 @@
+@* @model User *@
+@{
+    int? uid = @Context.Session.GetInt32("UserId");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> </p>
+            <h3>This is the dashboard.</h3>
+            @if(ViewBag.CurrentUser.AccessLevel == "HeadAdmin")
+            {
+                <p>Event Information:</p>
+                <button><a asp-controller="Event" asp-action="Create">Create a new Event</a></button>
+                <button><a asp-controller="Event" asp-action="ViewAll">See all Events</a></button>
+                <br>
+                <br>
+                <p>Series Information</p>
+                <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
+                <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Series</a></button>
+                <br>
+                <br>
+                <p>Patron Information</p>
+                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+            }
+            else if(ViewBag.CurrentUser.AccessLevel == "GeneralAdmin")
+            {
+                <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
+                <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
+                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+            }
+            else if (ViewBag.CurrentUser.AccessLevel == "NewEmployee")
+            {
+                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+            }
+        </div>
+    </div>
+</body>
+</html>

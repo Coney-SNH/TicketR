@@ -1,0 +1,52 @@
+@using Ticketr.Models
+@model User
+<div class= "registration">
+    <p style="text-align: right;"><a asp-controller="Home" asp-action="Index">Login</a></p>
+    <h3 style="text-align: center;">Register</h3>
+    <form asp-action="register" asp-controller="home" method="post">
+        <span asp-validation-for="AccessLevel"></span>
+        </br>
+        <label asp-for="AccessLevel"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="AccessLevel">
+        </br>
+        <span asp-validation-for="FirstName"></span>
+        </br>
+        <label asp-for="FirstName"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="FirstName">
+        </br>
+        <span asp-validation-for="LastName"></span>
+        </br>
+        <label asp-for="LastName"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="LastName">
+        </br>
+        <span asp-validation-for="Email"></span>
+        </br>
+        <label asp-for="Email"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="Email">
+        </br>
+        <span asp-validation-for="Password"></span>
+        </br>
+        <label asp-for="Password"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="Password">
+        </br>
+        <span asp-validation-for="ConfirmPassword"></span>
+        </br>
+        <label asp-for="ConfirmPassword"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="ConfirmPassword">
+        </br>
+        </br>
+        <input type="submit" value="Submit">
+    </form>
+</div>

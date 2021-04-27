@@ -1,0 +1,48 @@
+@using Ticketr.Models;
+@model Event;
+<div>
+    <h3>Create a new Event</h3>
+    <form asp-action="CreateEvent" asp-controller="Event" method="post">
+        <span asp-validation-for="EventCode"></span>
+        </br>
+        <label asp-for="EventCode"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="EventCode">
+        </br>
+        <span asp-validation-for="EventName"></span>
+        </br>
+        <label asp-for="EventName"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="EventName">
+        </br>
+        <span asp-validation-for="PriceMap"></span>
+        </br>
+        <label asp-for="PriceMap"></label>
+        <span>: </span>
+        <select asp-for="PriceMap">
+            <option value="High">High</option>
+            <option value="Normal">Normal</option>
+            <option value="Low">Low</option>
+        </select>
+        </br>
+        <span asp-validation-for="StartDate"></span>
+        </br>
+        <label asp-for="StartDate"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="StartDate">
+        </br>
+        <span asp-validation-for="EndDate"></span>
+        </br>
+        <label asp-for="EndDate"></label>
+        <span>: </span>
+        </br>
+        <input asp-for="EndDate">
+        </br>
+        </br>
+        <input type="submit" value="Create Event">
+    </form>
+
+</div>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a></p>
+            <h1>All Events</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Event Code</th>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Pricing Map</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AllEvents)
+                    {
+                        <tr>
+                            <td><a asp-controller="Event" asp-action="Details" asp-route-EventId="@item.EventId">@item.EventCode</a></td>
+                            <td>@item.EventName</td>
+                            <td>@item.PriceMap</td>
+                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
+                            <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
+                            <td><a asp-action="Edit" asp-controller="Event" asp-route-EventId="@item.EventId">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button style="margin-left: 730px"><a asp-controller="Event" asp-action="Create">Create new Event</a></button>
+        </div>
+    </div>
+</body>
+</html>

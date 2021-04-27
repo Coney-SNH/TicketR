@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> </p>
+            <partial name="_NewSeriesPartial"/>
+            <table class="table" style="display: inline-block; vertical-align:top; width: 500px;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Event Code</th>
+                        <th scope="col">Starting Date</th>
+                        <th scope="col">Event Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.UpcomingEvents)
+                    {
+                        <tr>
+                            <td>@item.EventCode</td>
+                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
+                            <td>@item.EventName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
