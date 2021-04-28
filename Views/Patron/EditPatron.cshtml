@@ -1,0 +1,100 @@
+@model Patron
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <div>
+                <h3>Edit patron details</h3>
+                <form asp-controller="Patron" asp-action="UpdatePatron" method="Post" asp-route-PatronId="@Model.PatronId">
+                    <span asp-validation-for="FirstName"></span>
+                    </br>
+                    <label asp-for="FirstName"></label>
+                    <span>: (required)</span>
+                    </br>
+                    <input asp-for="FirstName">
+                    </br>
+                    <span asp-validation-for="LastName"></span>
+                    </br>
+                    <label asp-for="LastName"></label>
+                    <span>: (required)</span>
+                    </br>
+                    <input asp-for="LastName">
+                    </br>
+                    <span asp-validation-for="Address"></span>
+                    </br>
+                    <label asp-for="Address"></label>
+                    <span>: (required)</span>
+                    </br>
+                    <input asp-for="Address">
+                    </br>
+                    <span asp-validation-for="PhoneNumber"></span>
+                    <span asp-validation-for="PhoneNumberType"></span>
+                    </br>
+                    <label asp-for="PhoneNumber"></label>
+                    <span>: (required)</span>
+                    </br>
+                    <input asp-for="PhoneNumber">
+                    <select asp-for="PhoneNumberType">
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                        <option value="Cell">Cell</option>
+                    </select>
+                    </br>
+                    <span asp-validation-for="DateOfBirth"></span>
+                    </br>
+                    <label asp-for="DateOfBirth"></label>
+                    <span>: (required)</span>
+                    </br>
+                    <input asp-for="DateOfBirth">
+                    </br>
+                    <span asp-validation-for="Email"></span>
+                    </br>
+                    <label asp-for="Email"></label>
+                    <span>: </span>
+                    </br>
+                    <input asp-for="Email">
+                    </br>
+                    <span asp-validation-for="FaxNumber"></span>
+                    </br>
+                    <label asp-for="FaxNumber"></label>
+                    <span>: </span>
+                    </br>
+                    <input asp-for="FaxNumber">
+                    </br>
+                    <span asp-validation-for="Website"></span>
+                    </br>
+                    <label asp-for="Website"></label>
+                    <span>: </span>
+                    </br>
+                    <input asp-for="Website">
+                    </br>
+                    <span asp-validation-for="SubscriptionModule"></span>
+                    </br>
+                    <label asp-for="SubscriptionModule"></label>
+                    <span>: </span>
+                    </br>
+                    <input asp-for="SubscriptionModule">
+                    </br>
+                    <label asp-for="IsMilitary"></label>
+                    <span>: </span>
+                    <input asp-for="IsMilitary">
+                    </br>
+                    <label asp-for="IsStudent"></label>
+                    <span>: </span>
+                    <input asp-for="IsStudent">
+                    </br>
+                    <input type="submit" value="Edit Patron">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

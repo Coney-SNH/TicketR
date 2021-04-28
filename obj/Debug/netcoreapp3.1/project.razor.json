@@ -14402,6 +14402,16 @@
   "RootNamespace": "ticketr",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Event\\EventSearchResults.cshtml",
+      "TargetPath": "Views\\Event\\EventSearchResults.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PatronDonation.cshtml",
+      "TargetPath": "Views\\Patron\\PatronDonation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Series\\AllSeries.cshtml",
       "TargetPath": "Views\\Series\\AllSeries.cshtml",
       "FileKind": "mvc"
@@ -14419,6 +14429,11 @@
     {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PatronDetails.cshtml",
+      "TargetPath": "Views\\Patron\\PatronDetails.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14472,8 +14487,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\AllPatrons.cshtml",
+      "TargetPath": "Views\\Patron\\AllPatrons.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\NewPatron.cshtml",
+      "TargetPath": "Views\\Patron\\NewPatron.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Series\\NewSeries.cshtml",
       "TargetPath": "Views\\Series\\NewSeries.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PurchaseTickets.cshtml",
+      "TargetPath": "Views\\Patron\\PurchaseTickets.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14487,6 +14517,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\_NewPatronPartial.cshtml",
+      "TargetPath": "Views\\Patron\\_NewPatronPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
@@ -14497,8 +14532,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\EditPatron.cshtml",
+      "TargetPath": "Views\\Patron\\EditPatron.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Home\\_LoginPartial.cshtml",
       "TargetPath": "Views\\Home\\_LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\_NewDonationPartial.cshtml",
+      "TargetPath": "Views\\Patron\\_NewDonationPartial.cshtml",
       "FileKind": "mvc"
     },
     {

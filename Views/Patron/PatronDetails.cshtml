@@ -1,0 +1,96 @@
+@model Patron
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <h1 style="text-align: center;">Details for @Model.FirstName @Model.LastName</h1>
+            <button style="margin-left: 297px;"><a asp-controller="Patron" asp-action="PurchaseTicket" asp-route-PatronId="@Model.PatronId">Purchase a ticket</a></button>
+            <button><a asp-controller="Patron" asp-action="DonationPage" asp-route-PatronId="@Model.PatronId">Make a donation</a></button>
+            <p></p>
+            <p>Subscription Module: @Model.SubscriptionModule</p>
+            <p>Date of Birth: @Model.DateOfBirth.ToString("MM/dd/yy")</p>
+            <p>Age: @ViewBag.PatronAge</p>
+            <p>Status: @ViewBag.PatronStatus</p>
+            <p>Address: @Model.Address</p>
+            <p>Phone Number: @Model.PhoneNumber (@Model.PhoneNumberType)</p>
+            <p>Email: @Model.Email</p>
+            <p>Fax Number: @Model.FaxNumber</p>
+            <p>Website url: @Model.Website</p>
+            @if(Model.IsMilitary == true)
+            {
+                <p>In the military: True</p>
+            }
+            else
+            {
+                <p>In the military: False</p>
+            }
+            @if(Model.IsStudent == true)
+            {
+                <p>Is a student: True</p>
+            }
+            else
+            {
+                <p>Is a student: False</p>
+            }
+
+            <p>Total in tickets purchased: $@Math.Round(ViewBag.PatronTotals,2)</p>
+            <p>Total in donations: $@Math.Round(ViewBag.PatronDonations,2)</p>
+
+            <p><a asp-controller="Patron" asp-action="editPatron" asp-route-PatronId="@Model.PatronId">edit</a></p>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Date of purchase</th>
+                        <th scope="col">Ticket Price</th>
+                        <th scope="col">Name of show</th>
+                        <th scope="col">Show for ticket</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AllPatronSeries)
+                    {
+                        <tr>
+                            <td>@item.CreatedAt.ToString("MM/dd/yyyy @ hh:mm tt")</td>
+                            <td>$@Math.Round(item.Series.TicketPrice, 2)</td>
+                            <td>@item.Series.Event.EventName</td>
+                            <td>@item.Series.SeriesName</td>
+                            <td>Print Ticket</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Donation number</th>
+                        <th scope="col">Date of donation</th>
+                        <th scope="col">Donation amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DonationsMade)
+                    {
+                        <tr>
+                            <td>@item.DonationId</td>
+                            <td>@item.CreatedAt.ToString("MM/dd/yyyy @ hh:mm tt")</td>
+                            <td>$@Math.Round(item.DonationAmount, 2)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>

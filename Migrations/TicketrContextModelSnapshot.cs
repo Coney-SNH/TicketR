@@ -86,9 +86,13 @@ namespace Ticketr.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
@@ -98,6 +102,7 @@ namespace Ticketr.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("IsMilitary")
@@ -107,19 +112,19 @@ namespace Ticketr.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("PhoneNumberType")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("SubscriptionModule")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<decimal>("TotalDonations")
-                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -176,12 +181,17 @@ namespace Ticketr.Migrations
                     b.Property<int>("PatronId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SeriesId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TicketCost")
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("PurchasedTicketId");
 
                     b.HasIndex("PatronId");
+
+                    b.HasIndex("SeriesId");
 
                     b.ToTable("PurchasedTickets");
                 });
@@ -330,8 +340,14 @@ namespace Ticketr.Migrations
             modelBuilder.Entity("Ticketr.Models.PurchasedTicket", b =>
                 {
                     b.HasOne("Ticketr.Models.Patron", "Patron")
-                        .WithMany()
+                        .WithMany("TicketsPurchased")
                         .HasForeignKey("PatronId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ticketr.Models.Series", "Series")
+                        .WithMany()
+                        .HasForeignKey("SeriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

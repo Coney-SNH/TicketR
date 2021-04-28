@@ -10,7 +10,7 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> </p>
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
             <h1 style="text-align: center;">Details for @Model.EventName</h1>
             <p>Event code: @Model.EventCode</p>
             <p>Price map for Event: @Model.PriceMap</p>
@@ -18,7 +18,38 @@
             <p>End date of Event: @Model.EndDate.ToString("MM/dd/yyyy")</p>
             <a asp-action="Edit" asp-controller="Event" asp-route-EventId="@Model.EventId">Edit</a>
 
-            <p>We should see a table of all available Series related to this event</p>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Series Name</th>
+                        <th scope="col">Date and Time</th>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Ticket Price</th>
+                        <th scope="col">Tickets Available</th>
+                        <th scope="col">Base Price</th>
+                        <th scope="col">Total Discounts</th>
+                        <th scope="col">Net Sales</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.EventSeries)
+                    {
+                        <tr>
+                            <td><a asp-controller="Series" asp-action="SeriesDetails" asp-route-SeriesId="@item.SeriesId">@item.SeriesName</a></td>
+                            <td>@item.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
+                            <td>@item.SeriesVenue</td>
+                            <td>$@Math.Round(item.TicketPrice,2)</td>
+                            <td>@item.TicketsAvailable</td>
+                            <td>$@Math.Round(item.BasePrice,2)</td>
+                            <td>$@Math.Round(item.TotalDiscounts,2)</td>
+                            <td>$@Math.Round(item.NetSales,2)</td>
+                            <td><a asp-controller="Series" asp-action="EditSeries" asp-route-SeriesId="@item.SeriesId">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button style="margin-left: 740px"><a asp-controller="Series" asp-action="CreateSeries">Add Series</a></button>
         </div>
     </div>
 </body>

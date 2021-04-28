@@ -51,5 +51,7 @@ namespace Ticketr.Models
         //Who created this event
         public int UserId {get;set;}
         public User CreatedBy {get;set;}
+
+        public List<Series> SeriesForEvent {get;set;}
     }
 }

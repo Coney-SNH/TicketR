@@ -10,7 +10,7 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> </p>
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
                 <form asp-action="DeleteSeries" asp-controller="Series" asp-route-SeriesId="@Model.SeriesId" style="margin-left: 650px" method="Post">
                     <input type="submit" value="Delete Series">
                 </form>

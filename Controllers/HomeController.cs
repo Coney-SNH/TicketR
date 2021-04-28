@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Ticketr.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
 namespace Ticketr.Controllers
@@ -148,8 +149,35 @@ namespace Ticketr.Controllers
 
             User curUser = db.Users.FirstOrDefault(u => u.UserId == (int)uid);
             ViewBag.CurrentUser = curUser;
+            
+            decimal totalTicketsPrice = 0;
+            decimal totalDonations = 0;
+
+            List<Event> allTickets = db.Events.Include(s => s.SeriesForEvent).ToList();
+            List<Donation> allDonations = db.Donations.ToList();
+            foreach(var item in allTickets)
+            {
+                foreach(var nextItem in item.SeriesForEvent)
+                {
+                    totalTicketsPrice += nextItem.NetSales;
+                }
+            }
+            foreach (var item in allDonations)
+            {
+                totalDonations += item.DonationAmount;
+            }
+            
+            ViewBag.TotalSales = totalTicketsPrice;
+            ViewBag.TotalDonations = totalDonations;
 
             return View("Dashboard");
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

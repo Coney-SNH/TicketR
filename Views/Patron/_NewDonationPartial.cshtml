@@ -1,0 +1,10 @@
+@model Donation
+@using Ticketr.Models
+<form asp-action="MakeDonation" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" method="Post">
+    <span asp-validation-for="DonationAmount"></span>
+    </br>
+    <label asp-for="DonationAmount"></label>
+    <span>: </span>
+    <input asp-for="DonationAmount">
+    <input type="submit" Value="Donate">
+</form>

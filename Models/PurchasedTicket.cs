@@ -17,5 +17,9 @@ namespace Ticketr.Models
         public int PatronId {get;set;}
 
         public Patron Patron {get;set;}
+
+        public int SeriesId {get;set;}
+
+        public Series Series {get;set;}
     }
 }

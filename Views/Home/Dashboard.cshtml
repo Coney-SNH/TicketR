@@ -13,33 +13,57 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> </p>
+            <form asp-controller="Home" asp-action="Logout" method="Post">
+                <p style="display: inline-block;"><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+                <input style="margin-left: 300px;" type="submit" value="logout">
+            </form>
             <h3>This is the dashboard.</h3>
-            @if(ViewBag.CurrentUser.AccessLevel == "HeadAdmin")
-            {
-                <p>Event Information:</p>
-                <button><a asp-controller="Event" asp-action="Create">Create a new Event</a></button>
-                <button><a asp-controller="Event" asp-action="ViewAll">See all Events</a></button>
-                <br>
-                <br>
-                <p>Series Information</p>
-                <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
-                <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Series</a></button>
-                <br>
-                <br>
-                <p>Patron Information</p>
-                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
-            }
-            else if(ViewBag.CurrentUser.AccessLevel == "GeneralAdmin")
-            {
-                <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
-                <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
-                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
-            }
-            else if (ViewBag.CurrentUser.AccessLevel == "NewEmployee")
-            {
-                <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
-            }
+            <div style="width: 400px; display: inline-block;">
+                @if(ViewBag.CurrentUser.AccessLevel == "HeadAdmin")
+                {
+                    <p>Event Information:</p>
+                    <button><a asp-controller="Event" asp-action="Create">Create a new Event</a></button>
+                    <button><a asp-controller="Event" asp-action="ViewAll">See all Events</a></button>
+                    @* <form asp-controller="Event" asp-action="SearchEvents" method="Get">
+                        <label for="SearchTerm">Search Event Code:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="searchEvent">
+                    </form> *@
+                    <br>
+                    <br>
+                    <p>Series Information</p>
+                    <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
+                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Series</a></button>
+                    <br>
+                    <br>
+                    <p>Patron Information</p>
+                    <button><a asp-controller="Patron" asp-action="CreatePatron">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                }
+                else if(ViewBag.CurrentUser.AccessLevel == "GeneralAdmin")
+                {
+                    <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
+                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
+                    <br>
+                    <br>
+                    <p>Patron Information</p>
+                    <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                }
+                else if (ViewBag.CurrentUser.AccessLevel == "NewEmployee")
+                {
+                    <p>Patron Information</p>
+                    <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                }
+            </div>
+            <div style="width: 300px; display: inline-block; Vertical-Align:top;">
+                <h3>Total Profits:</h3>
+                <p>Total Ticket Income: $@Math.Round(ViewBag.TotalSales,2)</p>
+                <p>Total Donation amount: $@Math.Round(ViewBag.TotalDonations,2)</p>
+            </div>
+            
         </div>
     </div>
 </body>

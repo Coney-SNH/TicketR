@@ -10,7 +10,7 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> </p>
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
             <h1 style="text-align: center;">Details for @Model.SeriesName</h1>
             <p>Related Event: @Model.Event.EventName</p>
             <p>Series Date and Time: @Model.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</p>
@@ -22,7 +22,27 @@
             <p>Total Net Sales: $@Math.Round(Model.NetSales, 2)</p>
             <a asp-action="EditSeries" asp-controller="Series" asp-route-SeriesId="@Model.SeriesId">Edit</a>
 
-            <p>This is where we'll have the list of patrons attending this series</p>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Patron Name</th>
+                        <th scope="col">Price of ticket</th>
+                        <th scope="col">View Details</th>
+                        <th scope="col">Actions</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PatronsWatched)
+                    {
+                        <tr>
+                            <td>@item.Patron.FirstName @item.Patron.LastName</td>
+                            <td>$@Math.Round(Model.TicketPrice,2)</td>
+                            <td><a asp-controller="Patron" asp-action="PatronDetails" asp-route-PatronId="@item.PatronId">Patron Details</a></td>
+                            <td>Print Ticket</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 

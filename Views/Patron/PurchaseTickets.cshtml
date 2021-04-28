@@ -1,0 +1,83 @@
+@model Patron
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <p><a asp-controller="Patron" asp-action="PatronDetails" asp-route-PatronId="@Model.PatronId">Return to Patron Details</a></p>
+            <h1>Purchase a ticket for @Model.FirstName @Model.LastName</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Series Name</th>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Series Date</th>
+                        <th scope="col">Series Time</th>
+                        <th scope="col">Tickets Available</th>
+                        <th scope="col">Ticket Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AllSeries)
+                    {
+                        <tr>
+                            <td>@item.SeriesName</td>
+                            <td>@item.Event.EventName</td>
+                            <td>@item.SeriesDate.ToString("MM/dd/yyyy")</td>
+                            <td>@item.SeriesTime.ToString("hh:mm tt")</td>
+                            <td>@item.TicketsAvailable</td>
+                            <td>$@Math.Round(item.TicketPrice, 2)</td>
+                            <td>
+                                <form asp-action="PurchaseSeriesTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.SeriesId" method="Post">
+                                    <input type="submit" value="Purchase">
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h3>Purchased Tickets for @Model.FirstName @Model.LastName</h3>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Series Name</th>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Series Date</th>
+                        <th scope="col">Series Time</th>
+                        <th scope="col">Ticket Price</th>
+                        <th scope="col">Refund</th>
+                        <th scope="col">Print Ticket</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.UpcomingPatronSeries)
+                    {
+                        <tr>
+                            <td>@item.Series.SeriesName</td>
+                            <td>@item.Series.Event.EventName</td>
+                            <td>@item.Series.SeriesDate.ToString("MM/dd/yyyy")</td>
+                            <td>@item.Series.SeriesTime.ToString("hh:mm tt")</td>
+                            <td>$@Math.Round(item.Series.TicketPrice, 2)</td>
+                            <td>
+                                <form asp-action="PurchaseSeriesTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId" method="Post">
+                                    <input type="submit" value="Refund">
+                                </form>
+                            </td>
+                            <td>PRINT</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

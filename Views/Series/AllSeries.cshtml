@@ -9,15 +9,14 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-        <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> </p>
+        <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
         <h1>All Series</h1>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Series Name</th>
                     <th scope="col">Event Name</th>
-                    <th scope="col">Series Date</th>
-                    <th scope="col">Series Time</th>
+                    <th scope="col">Series Date & Time</th>
                     <th scope="col">Tickets Sold</th>
                     <th scope="col">Tickets Available</th>
                     <th scope="col">Base Price</th>
@@ -32,8 +31,7 @@
                     <tr>
                         <td><a asp-controller="Series" asp-action="SeriesDetails" asp-route-SeriesId="@item.SeriesId">@item.SeriesName</a></td>
                         <td>@item.Event.EventName</td>
-                        <td>@item.SeriesDate.ToString("MM/dd/yyyy")</td>
-                        <td>@item.SeriesTime.ToString("hh:mm tt")</td>
+                        <td>@item.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
                         <td>@item.TicketsSold</td>
                         <td>@item.TicketsAvailable</td>
                         <td>$@Math.Round(item.BasePrice,2)</td>

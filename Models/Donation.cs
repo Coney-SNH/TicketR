@@ -10,6 +10,8 @@ namespace Ticketr.Models
         [Key]
         public int DonationId {get;set;}
 
+        [Required(ErrorMessage="Please enter a donation amount")]
+        [Display(Name="Donation Amount")]
         public decimal DonationAmount {get;set;}
 
         public DateTime CreatedAt {get;set;} = DateTime.Now;

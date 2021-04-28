@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <h1>All Patrons</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Patron Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AllPatrons)
+                    {
+                        <tr>
+                            <td><a asp-controller="Patron" asp-action="PatronDetails" asp-route-PatronId="@item.PatronId">@item.PatronId</a></td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.DateOfBirth.ToString("MM/dd/yy")</td>
+                            <td>@item.Address</td>
+                            <td>@item.PhoneNumber (@item.PhoneNumberType)</td>
+                            <td>@item.Email</td>
+                            <td><a asp-controller="Patron" asp-action="EditPatron" asp-route-PatronId="@item.PatronId">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button style="margin-left: 730px"><a asp-controller="Patron" asp-action="CreatePatron">Create new Patron</a></button>
+        </div>
+    </div>
+</body>
+</html>

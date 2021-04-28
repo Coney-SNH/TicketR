@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Ticketr.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
 namespace Ticketr.Controllers
@@ -101,7 +102,7 @@ namespace Ticketr.Controllers
             db.Events.Add(newEvent);
             db.SaveChanges();
 
-            return RedirectToAction("ViewAll");
+            return RedirectToAction("Details", new{EventId = newEvent.EventId});
         }
 
         [HttpGet("event/view/all")]
@@ -185,13 +186,24 @@ namespace Ticketr.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Event curEvent = db.Events.FirstOrDefault(e => e.EventId == EventId);
+            Event curEvent = db.Events.Include(s => s.SeriesForEvent).FirstOrDefault(e => e.EventId == EventId);
             if(curEvent == null)
             {
                 return RedirectToAction("Dashboard","Home");
             }
 
+            List<Series> EventSeries = db.Series.Where(e => e.EventId == curEvent.EventId).OrderBy(rd => rd.CombinedTime).ToList();
+            ViewBag.EventSeries = EventSeries;
+
             return View("Details", curEvent);
+        }
+
+        [HttpGet("event/search/{SearchTerm}")]
+        public IActionResult SearchEvents(string SearchTerm)
+        {
+            ViewBag.SearchPhrase = SearchTerm;
+            Console.WriteLine(SearchTerm);
+            return View("EventSearchResults");
         }
     }
 }

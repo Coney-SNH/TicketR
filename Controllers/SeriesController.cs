@@ -116,7 +116,7 @@ namespace Ticketr.Controllers
             db.Series.Add(newSeries);
             db.SaveChanges();
 
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("Details", "Event", new{EventId = newSeries.EventId});
         }
 
         [HttpGet("series/view/all")]
@@ -139,7 +139,7 @@ namespace Ticketr.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Series curSeries = db.Series.Include(e => e.Event).FirstOrDefault(s => s.SeriesId == SeriesId);
+            Series curSeries = db.Series.Include(e => e.Event).Include(p=> p.PatronsWatched).ThenInclude(p => p.Patron).FirstOrDefault(s => s.SeriesId == SeriesId);
             if(curSeries == null)
             {
                 return RedirectToAction("Dashboard","Home");

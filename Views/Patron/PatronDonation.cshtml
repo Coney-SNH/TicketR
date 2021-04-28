@@ -1,0 +1,25 @@
+@model Patron
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <h2>What kind of donation is @Model.FirstName @Model.LastName making?</h2>
+            @{
+                Donation newDonation = new Donation()
+                {
+                    PatronId = Model.PatronId
+                };
+            }
+            <partial name="_NewDonationPartial" model="newDonation"/>
+        </div>
+    </div>
+</body>
+</html>
