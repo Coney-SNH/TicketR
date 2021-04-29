@@ -60,6 +60,8 @@ namespace Ticketr.Models
         [Display(Name="Net Sales")]
         public decimal NetSales {get;set;} = 0;
 
+        // public string[] AvailableSeats {get;set;}
+
         public DateTime CreatedAt {get;set;} = DateTime.Now;
 
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
@@ -71,6 +73,8 @@ namespace Ticketr.Models
         public Event Event {get;set;}
 
         public List<PatronSeriesRel> PatronsWatched {get;set;}
+
+        public List<SeriesSeatPatronRel> PatronsInSeats {get;set;}
     }
 }
 

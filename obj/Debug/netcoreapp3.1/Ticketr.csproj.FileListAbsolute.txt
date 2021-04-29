@@ -81,3 +81,8 @@ C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\De
 C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Patron\PatronDonation.cshtml.g.cs
 C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Patron\_NewDonationPartial.cshtml.g.cs
 C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Event\EventSearchResults.cshtml.g.cs
+C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Patron\PrintTicket.cshtml.g.cs
+C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Series\SeriesSearchResults.cshtml.g.cs
+C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Patron\PatronSearchResults.cshtml.g.cs
+C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Seat\NewSeat.cshtml.g.cs
+C:\Users\User\Desktop\Dojo_Assignments\Projects\Ticketing Service\Ticketr\obj\Debug\netcoreapp3.1\Razor\Views\Seat\SelectSeat.cshtml.g.cs

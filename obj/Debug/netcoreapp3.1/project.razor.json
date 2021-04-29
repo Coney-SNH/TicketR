@@ -14432,8 +14432,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Seat\\SelectSeat.cshtml",
+      "TargetPath": "Views\\Seat\\SelectSeat.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PatronDetails.cshtml",
       "TargetPath": "Views\\Patron\\PatronDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PrintTicket.cshtml",
+      "TargetPath": "Views\\Patron\\PrintTicket.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14502,6 +14512,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Series\\SeriesSearchResults.cshtml",
+      "TargetPath": "Views\\Series\\SeriesSearchResults.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PurchaseTickets.cshtml",
       "TargetPath": "Views\\Patron\\PurchaseTickets.cshtml",
       "FileKind": "mvc"
@@ -14517,6 +14532,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Seat\\NewSeat.cshtml",
+      "TargetPath": "Views\\Seat\\NewSeat.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\_NewPatronPartial.cshtml",
       "TargetPath": "Views\\Patron\\_NewPatronPartial.cshtml",
       "FileKind": "mvc"
@@ -14524,6 +14544,11 @@
     {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PatronSearchResults.cshtml",
+      "TargetPath": "Views\\Patron\\PatronSearchResults.cshtml",
       "FileKind": "mvc"
     },
     {

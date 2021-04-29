@@ -1,4 +1,4 @@
-@model List<Event>
+@model Seat
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,28 +11,31 @@
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
             <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
-            <h1>Search results for "@ViewBag.SearchTerm"</h1>
+            <h1>CAUSE I CAN'T THINK  OF ANOTHER WAY AROUND THIS RIGHT NOW</h1>
+            <form asp-action="NewSeat" asp-controller="Seat" method="Post">
+                <label asp-for="SeatNumber">Seat Number:</label>
+                <input asp-for="SeatNumber">
+                <select asp-for="SeatStatus">
+                    <option value="GoldSection">Gold Section</option>
+                    <option value="ASection">A Section</option>
+                    <option value="BSection">B Section</option>
+                </select>
+                <input type="submit" value="Make Seat">
+            </form>
+
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Event Code</th>
-                        <th scope="col">Event Name</th>
-                        <th scope="col">Pricing Map</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Actions</th>
+                        <th class="col">Seat Number</th>
+                        <th class="col">Seat Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.Seats)
                     {
                         <tr>
-                            <td><a asp-controller="Event" asp-action="Details" asp-route-EventId="@item.EventId">@item.EventCode</a></td>
-                            <td>@item.EventName</td>
-                            <td>@item.PriceMap</td>
-                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
-                            <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
-                            <td><a asp-action="Edit" asp-controller="Event" asp-route-EventId="@item.EventId">Edit</a></td>
+                            <td>@item.SeatNumber</td>
+                            <td>@item.SeatStatus</td>
                         </tr>
                     }
                 </tbody>

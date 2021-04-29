@@ -75,5 +75,7 @@ namespace Ticketr.Models
         public List<Donation> DonationsMade {get;set;}
 
         public List<PurchasedTicket> TicketsPurchased {get;set;}
+
+        public List<SeriesSeatPatronRel> SeatInSeries {get;set;}
     }
 }

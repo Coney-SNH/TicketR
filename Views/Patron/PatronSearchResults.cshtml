@@ -1,4 +1,4 @@
-@model List<Event>
+@model List<Patron>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +15,12 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Event Code</th>
-                        <th scope="col">Event Name</th>
-                        <th scope="col">Pricing Map</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
+                        <th scope="col">Patron Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -27,12 +28,13 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td><a asp-controller="Event" asp-action="Details" asp-route-EventId="@item.EventId">@item.EventCode</a></td>
-                            <td>@item.EventName</td>
-                            <td>@item.PriceMap</td>
-                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
-                            <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
-                            <td><a asp-action="Edit" asp-controller="Event" asp-route-EventId="@item.EventId">Edit</a></td>
+                            <td><a asp-controller="Patron" asp-action="PatronDetails" asp-route-PatronId="@item.PatronId">@item.PatronId</a></td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.DateOfBirth.ToString("MM/dd/yy")</td>
+                            <td>@item.Address</td>
+                            <td>@item.PhoneNumber (@item.PhoneNumberType)</td>
+                            <td>@item.Email</td>
+                            <td><a asp-controller="Patron" asp-action="EditPatron" asp-route-PatronId="@item.PatronId">Edit</a></td>
                         </tr>
                     }
                 </tbody>

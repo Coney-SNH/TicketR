@@ -21,35 +21,48 @@
             <div style="width: 400px; display: inline-block;">
                 @if(ViewBag.CurrentUser.AccessLevel == "HeadAdmin")
                 {
+                    <p>Patron Information</p>
+                    <button><a asp-controller="Patron" asp-action="CreatePatron">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                    <form asp-controller="Patron" asp-action="SearchPatrons" method="Get">
+                        <label for="SearchTerm">Search Patrons:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="Search">
+                    </form>
+                    <br>
                     <p>Event Information:</p>
                     <button><a asp-controller="Event" asp-action="Create">Create a new Event</a></button>
                     <button><a asp-controller="Event" asp-action="ViewAll">See all Events</a></button>
-                    @* <form asp-controller="Event" asp-action="SearchEvents" method="Get">
-                        <label for="SearchTerm">Search Event Code:</label>
+                    <form asp-controller="Event" asp-action="SearchEvents" method="Get">
+                        <label for="SearchTerm">Search Event:</label>
                         <br>
                         <input name="SearchTerm" type="text">
-                        <input type="submit" value="searchEvent">
-                    </form> *@
-                    <br>
+                        <input type="submit" value="Search">
+                    </form>
                     <br>
                     <p>Series Information</p>
                     <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
                     <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Series</a></button>
+                    <form asp-controller="Series" asp-action="SearchSeries" method="Get">
+                        <label for="SearchTerm">Search Series:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="Search">
+                    </form>
                     <br>
-                    <br>
-                    <p>Patron Information</p>
-                    <button><a asp-controller="Patron" asp-action="CreatePatron">Add a new Patron</a></button>
-                    <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                    <button><a asp-controller="Seat" asp-action="CreateSeat">Seat form cause I have to.</a></button>
+                    
+                    
                 }
                 else if(ViewBag.CurrentUser.AccessLevel == "GeneralAdmin")
                 {
-                    <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
-                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
-                    <br>
-                    <br>
                     <p>Patron Information</p>
                     <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
                     <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                    <br>
+                    <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
+                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
                 }
                 else if (ViewBag.CurrentUser.AccessLevel == "NewEmployee")
                 {
@@ -62,6 +75,7 @@
                 <h3>Total Profits:</h3>
                 <p>Total Ticket Income: $@Math.Round(ViewBag.TotalSales,2)</p>
                 <p>Total Donation amount: $@Math.Round(ViewBag.TotalDonations,2)</p>
+                <img src="@ViewBag.TheatreLayout" alt="Seating chart of CodingDojo Productions, Mainstage" style="width: 130%; height: auto; border: 3px solid black;">
             </div>
             
         </div>

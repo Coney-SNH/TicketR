@@ -14,6 +14,10 @@ namespace Ticketr.Models
 
         public DbSet<Patron> Patrons {get;set;}
 
+        public DbSet<Seat> Seats {get;set;}
+
+        public DbSet<SeriesSeatPatronRel> SeriesSeatPatronRels {get;set;}
+
         public DbSet<PatronSeriesRel> PatronSeriesRels {get;set;} //Many to many model for patrons and series
 
         public DbSet<Donation> Donations {get;set;}

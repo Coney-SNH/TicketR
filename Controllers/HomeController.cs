@@ -15,7 +15,7 @@ namespace Ticketr.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        // private readonly ILogger<HomeController> _logger;
 
         private TicketrContext db;
 
@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -169,6 +169,8 @@ namespace Ticketr.Controllers
             
             ViewBag.TotalSales = totalTicketsPrice;
             ViewBag.TotalDonations = totalDonations;
+
+            ViewBag.TheatreLayout = "/Images/SeatingChartCrop.png";
 
             return View("Dashboard");
         }

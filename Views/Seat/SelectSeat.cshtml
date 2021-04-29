@@ -1,0 +1,29 @@
+@model SeriesSeatPatronRel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <h1>Seat Select</h1>
+            <form asp-controller="Seat" asp-action="ChooseSeat" asp-route-PatronId="@ViewBag.PatronId" asp-route-SeriesId="@ViewBag.SeriesId" method="Post">
+                <label asp-for="SeatId">Choose the seat</label>
+                <select asp-for="SeatId">
+                    @foreach (var item in ViewBag.RemainingSeats)
+                    {
+                        <option value="@item.SeatId">@item.SeatNumber</option>
+                    }
+                </select>
+                <input type="Submit" value="Select Seat">
+            </form>
+            <img src="@ViewBag.TheatreLayout" alt="Seating chart of CodingDojo Productions, Mainstage" style="width: 50%; height: auto; border: 3px solid black;">
+        </div>
+    </div>
+</body>
+</html>

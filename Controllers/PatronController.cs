@@ -15,7 +15,7 @@ namespace Ticketr.Controllers
 {
     public class PatronController : Controller
     {
-        private readonly ILogger<PatronController> _logger;
+        // private readonly ILogger<PatronController> _logger;
 
         private TicketrContext db;
 
@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ namespace Ticketr.Controllers
 
             db.Patrons.Add(newPatron);
             db.SaveChanges();
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("PatronDetails", new {PatronId = newPatron.PatronId});
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         [HttpGet("patron/view/all")]
@@ -298,7 +298,27 @@ namespace Ticketr.Controllers
             db.Update(curSeries);
             db.SaveChanges();
 
-            return RedirectToAction("PurchaseTicket", new {PatronId= PatronId});
+            return RedirectToAction("SelectSeat", "Seat", new {PatronId = PatronId, SeriesId = SeriesId});
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpPost("patron/{PatronId}/{SeriesId}/refund")]
+        public IActionResult RefundTicket(int PatronId, int SeriesId)
+        {
+            Patron curPatron = db.Patrons.FirstOrDefault(p => p.PatronId == PatronId);
+            Series curSeries = db.Series.FirstOrDefault(s => s.SeriesId == SeriesId);
+            PatronSeriesRel curPSR = db.PatronSeriesRels.FirstOrDefault(id => id.PatronId == PatronId && id.SeriesId == SeriesId);
+            SeriesSeatPatronRel curSSPR = db.SeriesSeatPatronRels.FirstOrDefault(id => id.PatronId == PatronId && id.SeriesId == SeriesId);
+            if(curPSR == null)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+            curSeries.TicketsAvailable += 1;
+            db.Series.Update(curSeries);
+            db.PatronSeriesRels.Remove(curPSR);
+            db.SeriesSeatPatronRels.Remove(curSSPR);
+            db.SaveChanges();
+            return RedirectToAction("PatronDetails", new {PatronId= PatronId});
+
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         [HttpGet("patron/{PatronId}/donationPage")]
@@ -335,6 +355,35 @@ namespace Ticketr.Controllers
             db.SaveChanges();
 
             return RedirectToAction("PatronDetails", new {PatronId = PatronId});
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpGet("patron/print-ticket/{PatronId}/{SeriesId}")]
+        public IActionResult PrintTicket(int PatronId, int SeriesId)
+        {
+            PatronSeriesRel curPatronSeriesRel = db.PatronSeriesRels
+                .Include(p => p.Patron)
+                .Include(s => s.Series)
+                    .ThenInclude(se => se.Event)
+                .FirstOrDefault(i => i.PatronId == PatronId && i.SeriesId == SeriesId);
+
+            if(curPatronSeriesRel == null)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+            ViewBag.TicketImage = "/wwwroot/img/green-texture.jpg";
+
+            SeriesSeatPatronRel curSeat = db.SeriesSeatPatronRels.Include(s => s.Seat).FirstOrDefault(s => s.PatronId == PatronId && s.SeriesId == SeriesId);
+            ViewBag.curSeat = curSeat;
+            ViewBag.WhyNot = "Whynot?";
+            return View("PrintTicket", curPatronSeriesRel);
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpGet("patron/search/")]
+        public IActionResult SearchPatrons(string SearchTerm)
+        {
+            List<Patron> matchPatron = db.Patrons.Where(p => p.FirstName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || p.LastName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || p.Address.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || p.PhoneNumber.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || p.Email.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            ViewBag.SearchTerm = SearchTerm;
+            return View("PatronSearchResults", matchPatron);
         }
     }
 }

@@ -18,8 +18,7 @@
                     <tr>
                         <th scope="col">Series Name</th>
                         <th scope="col">Event Name</th>
-                        <th scope="col">Series Date</th>
-                        <th scope="col">Series Time</th>
+                        <th scope="col">Series Date/Time</th>                        
                         <th scope="col">Tickets Available</th>
                         <th scope="col">Ticket Price</th>
                         <th scope="col">Actions</th>
@@ -31,8 +30,7 @@
                         <tr>
                             <td>@item.SeriesName</td>
                             <td>@item.Event.EventName</td>
-                            <td>@item.SeriesDate.ToString("MM/dd/yyyy")</td>
-                            <td>@item.SeriesTime.ToString("hh:mm tt")</td>
+                            <td>@item.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
                             <td>@item.TicketsAvailable</td>
                             <td>$@Math.Round(item.TicketPrice, 2)</td>
                             <td>
@@ -50,9 +48,9 @@
                     <tr>
                         <th scope="col">Series Name</th>
                         <th scope="col">Event Name</th>
-                        <th scope="col">Series Date</th>
-                        <th scope="col">Series Time</th>
+                        <th scope="col">Series Date/Time</th>  
                         <th scope="col">Ticket Price</th>
+                        <th scope="col">Seat</th>
                         <th scope="col">Refund</th>
                         <th scope="col">Print Ticket</th>
 
@@ -64,15 +62,15 @@
                         <tr>
                             <td>@item.Series.SeriesName</td>
                             <td>@item.Series.Event.EventName</td>
-                            <td>@item.Series.SeriesDate.ToString("MM/dd/yyyy")</td>
-                            <td>@item.Series.SeriesTime.ToString("hh:mm tt")</td>
+                            <td>@item.Series.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
                             <td>$@Math.Round(item.Series.TicketPrice, 2)</td>
+                            <td>SEAT NUM</td>
                             <td>
-                                <form asp-action="PurchaseSeriesTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId" method="Post">
+                                <form asp-action="RefundTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId" method="Post">
                                     <input type="submit" value="Refund">
                                 </form>
                             </td>
-                            <td>PRINT</td>
+                            <td><a asp-action="PrintTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId">Print Ticket</a></td>
                         </tr>
                     }
                 </tbody>

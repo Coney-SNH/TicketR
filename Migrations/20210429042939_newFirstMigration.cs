@@ -4,10 +4,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ticketr.Migrations
 {
-    public partial class First : Migration
+    public partial class newFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    SeatId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SeatNumber = table.Column<string>(nullable: true),
+                    SeatStatus = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.SeatId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -59,18 +75,18 @@ namespace Ticketr.Migrations
                 {
                     PatronId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberType = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    PhoneNumberType = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
                     FaxNumber = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     SubscriptionModule = table.Column<string>(nullable: true),
                     IsMilitary = table.Column<bool>(nullable: false),
                     IsStudent = table.Column<bool>(nullable: false),
-                    TotalDonations = table.Column<decimal>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -95,6 +111,7 @@ namespace Ticketr.Migrations
                     SeriesName = table.Column<string>(nullable: false),
                     SeriesDate = table.Column<DateTime>(nullable: false),
                     SeriesTime = table.Column<DateTime>(nullable: false),
+                    CombinedTime = table.Column<DateTime>(nullable: false),
                     SeriesVenue = table.Column<string>(nullable: false),
                     TicketPrice = table.Column<decimal>(nullable: false),
                     TicketsAvailable = table.Column<int>(nullable: false),
@@ -146,27 +163,6 @@ namespace Ticketr.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurchasedTickets",
-                columns: table => new
-                {
-                    PurchasedTicketId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TicketCost = table.Column<decimal>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    PatronId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PurchasedTickets", x => x.PurchasedTicketId);
-                    table.ForeignKey(
-                        name: "FK_PurchasedTickets_Patrons_PatronId",
-                        column: x => x.PatronId,
-                        principalTable: "Patrons",
-                        principalColumn: "PatronId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PatronSeriesRels",
                 columns: table => new
                 {
@@ -188,6 +184,69 @@ namespace Ticketr.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PatronSeriesRels_Series_SeriesId",
+                        column: x => x.SeriesId,
+                        principalTable: "Series",
+                        principalColumn: "SeriesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchasedTickets",
+                columns: table => new
+                {
+                    PurchasedTicketId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TicketCost = table.Column<decimal>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    PatronId = table.Column<int>(nullable: false),
+                    SeriesId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchasedTickets", x => x.PurchasedTicketId);
+                    table.ForeignKey(
+                        name: "FK_PurchasedTickets_Patrons_PatronId",
+                        column: x => x.PatronId,
+                        principalTable: "Patrons",
+                        principalColumn: "PatronId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchasedTickets_Series_SeriesId",
+                        column: x => x.SeriesId,
+                        principalTable: "Series",
+                        principalColumn: "SeriesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SeriesSeatPatronRels",
+                columns: table => new
+                {
+                    SeriesSeatPatronId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SeriesId = table.Column<int>(nullable: false),
+                    SeatId = table.Column<int>(nullable: false),
+                    PatronId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeriesSeatPatronRels", x => x.SeriesSeatPatronId);
+                    table.ForeignKey(
+                        name: "FK_SeriesSeatPatronRels_Patrons_PatronId",
+                        column: x => x.PatronId,
+                        principalTable: "Patrons",
+                        principalColumn: "PatronId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SeriesSeatPatronRels_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "SeatId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SeriesSeatPatronRels_Series_SeriesId",
                         column: x => x.SeriesId,
                         principalTable: "Series",
                         principalColumn: "SeriesId",
@@ -225,6 +284,11 @@ namespace Ticketr.Migrations
                 column: "PatronId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PurchasedTickets_SeriesId",
+                table: "PurchasedTickets",
+                column: "SeriesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Series_EventId",
                 table: "Series",
                 column: "EventId");
@@ -233,6 +297,21 @@ namespace Ticketr.Migrations
                 name: "IX_Series_UserId",
                 table: "Series",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeriesSeatPatronRels_PatronId",
+                table: "SeriesSeatPatronRels",
+                column: "PatronId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeriesSeatPatronRels_SeatId",
+                table: "SeriesSeatPatronRels",
+                column: "SeatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeriesSeatPatronRels_SeriesId",
+                table: "SeriesSeatPatronRels",
+                column: "SeriesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -247,10 +326,16 @@ namespace Ticketr.Migrations
                 name: "PurchasedTickets");
 
             migrationBuilder.DropTable(
-                name: "Series");
+                name: "SeriesSeatPatronRels");
 
             migrationBuilder.DropTable(
                 name: "Patrons");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
+
+            migrationBuilder.DropTable(
+                name: "Series");
 
             migrationBuilder.DropTable(
                 name: "Events");

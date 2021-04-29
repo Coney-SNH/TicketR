@@ -9,8 +9,8 @@ using Ticketr.Models;
 namespace Ticketr.Migrations
 {
     [DbContext(typeof(TicketrContext))]
-    [Migration("20210427192748_fixedPatronDonationsTickets")]
-    partial class fixedPatronDonationsTickets
+    [Migration("20210429042939_newFirstMigration")]
+    partial class newFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,6 +183,9 @@ namespace Ticketr.Migrations
                     b.Property<int>("PatronId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SeriesId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TicketCost")
                         .HasColumnType("decimal(65,30)");
 
@@ -190,7 +193,32 @@ namespace Ticketr.Migrations
 
                     b.HasIndex("PatronId");
 
+                    b.HasIndex("SeriesId");
+
                     b.ToTable("PurchasedTickets");
+                });
+
+            modelBuilder.Entity("Ticketr.Models.Seat", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SeatNumber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("SeatStatus")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("SeatId");
+
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("Ticketr.Models.Series", b =>
@@ -253,6 +281,38 @@ namespace Ticketr.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Series");
+                });
+
+            modelBuilder.Entity("Ticketr.Models.SeriesSeatPatronRel", b =>
+                {
+                    b.Property<int>("SeriesSeatPatronId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PatronId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeriesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("SeriesSeatPatronId");
+
+                    b.HasIndex("PatronId");
+
+                    b.HasIndex("SeatId");
+
+                    b.HasIndex("SeriesId");
+
+                    b.ToTable("SeriesSeatPatronRels");
                 });
 
             modelBuilder.Entity("Ticketr.Models.User", b =>
@@ -341,12 +401,18 @@ namespace Ticketr.Migrations
                         .HasForeignKey("PatronId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Ticketr.Models.Series", "Series")
+                        .WithMany()
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ticketr.Models.Series", b =>
                 {
                     b.HasOne("Ticketr.Models.Event", "Event")
-                        .WithMany()
+                        .WithMany("SeriesForEvent")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -354,6 +420,27 @@ namespace Ticketr.Migrations
                     b.HasOne("Ticketr.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ticketr.Models.SeriesSeatPatronRel", b =>
+                {
+                    b.HasOne("Ticketr.Models.Patron", "Patron")
+                        .WithMany("SeatInSeries")
+                        .HasForeignKey("PatronId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ticketr.Models.Seat", "Seat")
+                        .WithMany("PatronInSeries")
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ticketr.Models.Series", "Series")
+                        .WithMany("PatronsInSeats")
+                        .HasForeignKey("SeriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

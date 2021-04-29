@@ -64,7 +64,7 @@
                             <td>$@Math.Round(item.Series.TicketPrice, 2)</td>
                             <td>@item.Series.Event.EventName</td>
                             <td>@item.Series.SeriesName</td>
-                            <td>Print Ticket</td>
+                            <td><a asp-action="PrintTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.SeriesId">Print Ticket</a></td>
                         </tr>
                     }
                 </tbody>

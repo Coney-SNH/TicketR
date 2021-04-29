@@ -15,7 +15,7 @@ namespace Ticketr.Controllers
 {
     public class EventController : Controller
     {
-        private readonly ILogger<EventController> _logger;
+        // private readonly ILogger<EventController> _logger;
 
         private TicketrContext db;
 
@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -198,12 +198,12 @@ namespace Ticketr.Controllers
             return View("Details", curEvent);
         }
 
-        [HttpGet("event/search/{SearchTerm}")]
+        [HttpGet("event/search/")]
         public IActionResult SearchEvents(string SearchTerm)
         {
-            ViewBag.SearchPhrase = SearchTerm;
-            Console.WriteLine(SearchTerm);
-            return View("EventSearchResults");
+            List<Event> matchEvents = db.Events.Where(e => e.EventName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || e.EventCode.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            ViewBag.SearchTerm = SearchTerm;
+            return View("EventSearchResults", matchEvents);
         }
     }
 }

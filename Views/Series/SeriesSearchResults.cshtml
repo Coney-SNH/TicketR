@@ -1,4 +1,4 @@
-@model List<Event>
+@model List<Series>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +15,14 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Event Code</th>
+                        <th scope="col">Series Name</th>
                         <th scope="col">Event Name</th>
-                        <th scope="col">Pricing Map</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
+                        <th scope="col">Series Date & Time</th>
+                        <th scope="col">Tickets Sold</th>
+                        <th scope="col">Tickets Available</th>
+                        <th scope="col">Base Price</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Net Sales</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -27,12 +30,15 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td><a asp-controller="Event" asp-action="Details" asp-route-EventId="@item.EventId">@item.EventCode</a></td>
-                            <td>@item.EventName</td>
-                            <td>@item.PriceMap</td>
-                            <td>@item.StartDate.ToString("MM/dd/yyyy")</td>
-                            <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
-                            <td><a asp-action="Edit" asp-controller="Event" asp-route-EventId="@item.EventId">Edit</a></td>
+                            <td><a asp-controller="Series" asp-action="SeriesDetails" asp-route-SeriesId="@item.SeriesId">@item.SeriesName</a></td>
+                            <td>@item.Event.EventName</td>
+                            <td>@item.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
+                            <td>@item.TicketsSold</td>
+                            <td>@item.TicketsAvailable</td>
+                            <td>$@Math.Round(item.BasePrice,2)</td>
+                            <td>$@Math.Round(item.TotalDiscounts,2)</td>
+                            <td>$@Math.Round(item.NetSales,2)</td>
+                            <td><a asp-action="EditSeries" asp-controller="Series" asp-route-SeriesId="@item.SeriesId">Edit</a></td>
                         </tr>
                     }
                 </tbody>

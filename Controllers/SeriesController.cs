@@ -15,7 +15,7 @@ namespace Ticketr.Controllers
 {
     public class SeriesController : Controller
     {
-        private readonly ILogger<EventController> _logger;
+        // private readonly ILogger<EventController> _logger;
 
         private TicketrContext db;
 
@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -113,6 +113,14 @@ namespace Ticketr.Controllers
                 newSeries.SeriesTime.Second
             );
 
+            // string[] AllSeats = {"A1","A2","A3","A4","A5","A6","A7","A8","A9","A10","A11","B1","B2","B3","B4","B5","B6","B7","B8","B9","B10","B11","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","E1","E2","E3","E4","E5","E6","E7","E8","E9","E10","E11"};
+            // string[] GoldSection = {"A4","A5","A6","A7","A8","B4","B5","B6","B7","B8","C5","C6","C7"};
+            // string[] SectionA = {"A2","A3","A9","A10","B2","B3","B9","B10","C2","C3","C4","C8","C9","C10","D3","D4","D5","D6","D7","D8","D9","E4","E5","E6","E7","E8"};
+            // string[] SectionB = {"A1","A11","B1","B11","C1","C11","D1","D2","D10","D11","E1","E2","E3","E9","E10","E11"};
+
+            // newSeries.AvailableSeats = AllSeats;
+
+
             db.Series.Add(newSeries);
             db.SaveChanges();
 
@@ -182,7 +190,7 @@ namespace Ticketr.Controllers
             if(checkEvent == null)
             {
                 ModelState.AddModelError("RelatedEventCode", "The code you typed does not exist");
-                return View("EditSeries");
+                return View("EditSeries", curSeries);
             }
             if(ModelState.ContainsKey("SeriesDate")== true)
             {
@@ -191,16 +199,16 @@ namespace Ticketr.Controllers
             if(editSeries.SeriesDate < checkEvent.StartDate)
             {
                 ModelState.AddModelError("SeriesDate", "The series must happen on the day of or after the event beginning");
-                return View("EditSeries");
+                return View("EditSeries", curSeries);
             }
             if(editSeries.SeriesDate > checkEvent.EndDate)
             {
                 ModelState.AddModelError("SeriesDate", "The series must happen on the day of or before the event ended");
-                return View("EditSeries");
+                return View("EditSeries", curSeries);
             }
             if(!ModelState.IsValid)
             {
-                return View("EditSeries");
+                return View("EditSeries", curSeries);
             }
             
             editSeries.CombinedTime = new DateTime
@@ -240,6 +248,14 @@ namespace Ticketr.Controllers
             db.Series.Remove(curSeries);
             db.SaveChanges();
             return RedirectToAction("ViewAllSeries");
+        }
+
+        [HttpGet("series/search/")]
+        public IActionResult SearchSeries(string SearchTerm)
+        {
+            List<Series> matchSeries = db.Series.Include(e => e.Event).Where(e => e.SeriesName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            ViewBag.SearchTerm = SearchTerm;
+            return View("SeriesSearchResults", matchSeries);
         }
     }
 }
