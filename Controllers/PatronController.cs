@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -312,10 +312,35 @@ namespace Ticketr.Controllers
                 SeriesId = curSeries.SeriesId
             };
 
+            decimal curDiscount = 0;
+            if(curPatron.IsMilitary == true)
+            {
+                curDiscount += 5;
+                curSeries.NetSales -= 5;
+            }
+            if(curPatron.IsStudent == true)
+            {
+                curDiscount += 5;
+                curSeries.NetSales -= 5;
+            }
+            long dob = long.Parse(curPatron.DateOfBirth.ToString("yyyyMMdd"));
+            long today = long.Parse(DateTime.Now.ToString("yyyyMMdd"));
+            long age = today - dob;
+            if(age < 180000)
+            {
+                curDiscount += 10;
+                curSeries.NetSales += 10;
+            }
+            else if(age > 650000)
+            {
+                curDiscount += 5;
+                curSeries.NetSales += 5;
+            }
+
             curSeries.TicketsAvailable -= 1;
             curSeries.TicketsSold += 1;
             curSeries.BasePrice += curSeries.TicketPrice;
-            //WE CAN ADD DISCOUNTS HERE
+            curSeries.TotalDiscounts += curDiscount;
             curSeries.NetSales += curSeries.TicketPrice;
 
             db.PatronSeriesRels.Add(newPatronSeriesRel);
@@ -336,6 +361,35 @@ namespace Ticketr.Controllers
             {
                 return RedirectToAction("Dashboard", "Home");
             }
+
+            decimal curDiscount = 0;
+            if(curPatron.IsMilitary == true)
+            {
+                curDiscount += 5;
+                curSeries.NetSales += 5;
+            }
+            if(curPatron.IsStudent == true)
+            {
+                curDiscount += 5;
+                curSeries.NetSales += 5;
+            }
+            long dob = long.Parse(curPatron.DateOfBirth.ToString("yyyyMMdd"));
+            long today = long.Parse(DateTime.Now.ToString("yyyyMMdd"));
+            long age = today - dob;
+            if(age < 180000)
+            {
+                curDiscount += 10;
+                curSeries.NetSales -= 10;
+            }
+            else if(age > 650000)
+            {
+                curDiscount += 5;
+                curSeries.NetSales -= 5;
+            }
+
+            curSeries.BasePrice -= curSeries.TicketPrice;
+            curSeries.NetSales -= curSeries.TicketPrice;
+            curSeries.TotalDiscounts -= curDiscount;
             curSeries.TicketsAvailable += 1;
             curSeries.TicketsSold -= 1;
             db.Series.Update(curSeries);

@@ -39,7 +39,7 @@
                     @foreach (var item in ViewBag.AllAttending)
                     {
                         <tr>
-                            <td>@item.Patron.FirstName @item.Patron.LastName</td>
+                            <td><a asp-action="PatronDetails" asp-controller="Patron" asp-route-PatronId="@item.Patron.PatronId">@item.Patron.FirstName @item.Patron.LastName</a></td>
                             <td>$@Math.Round(Model.TicketPrice,2)</td>
                             <td>@item.Seat.SeatNumber</td>
                             <td><a asp-controller="Patron" asp-action="PatronDetails" asp-route-PatronId="@item.PatronId">Patron Details</a></td>

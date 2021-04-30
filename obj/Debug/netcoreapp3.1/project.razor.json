@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\ticketr.csproj",
+  "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Ticketr.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14399,7 +14399,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "ticketr",
+  "RootNamespace": "Ticketr",
   "Documents": [
     {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Event\\EventSearchResults.cshtml",
