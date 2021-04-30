@@ -58,17 +58,36 @@
                 else if(ViewBag.CurrentUser.AccessLevel == "GeneralAdmin")
                 {
                     <p>Patron Information</p>
-                    <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="CreatePatron">Add a new Patron</a></button>
                     <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                    <form asp-controller="Patron" asp-action="SearchPatrons" method="Get">
+                        <label for="SearchTerm">Search Patrons:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="Search">
+                    </form>
                     <br>
+                    <p>Series Information</p>
                     <button><a asp-controller="Series" asp-action="CreateSeries">Create a new Series</a></button>
-                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Events</a></button>
+                    <button><a asp-controller="Series" asp-action="ViewAllSeries">See all Series</a></button>
+                    <form asp-controller="Series" asp-action="SearchSeries" method="Get">
+                        <label for="SearchTerm">Search Series:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="Search">
+                    </form>
                 }
                 else if (ViewBag.CurrentUser.AccessLevel == "NewEmployee")
                 {
                     <p>Patron Information</p>
-                    <button><a asp-controller="Patron" asp-action="Create">Add a new Patron</a></button>
+                    <button><a asp-controller="Patron" asp-action="CreatePatron">Add a new Patron</a></button>
                     <button><a asp-controller="Patron" asp-action="ViewAllPatrons">See all Patrons</a></button>
+                    <form asp-controller="Patron" asp-action="SearchPatrons" method="Get">
+                        <label for="SearchTerm">Search Patrons:</label>
+                        <br>
+                        <input name="SearchTerm" type="text">
+                        <input type="submit" value="Search">
+                    </form>
                 }
             </div>
             <div style="width: 300px; display: inline-block; Vertical-Align:top;">
@@ -77,6 +96,18 @@
                 <p>Total Donation amount: $@Math.Round(ViewBag.TotalDonations,2)</p>
                 <img src="@ViewBag.TheatreLayout" alt="Seating chart of CodingDojo Productions, Mainstage" style="width: 130%; height: auto; border: 3px solid black;">
             </div>
+
+            @* <div>
+                @{
+                    var MyChart = new Chart(width: 200, height: 200)
+                        .AddTitle("Test")
+                        .AddSeries(chartType: "column",
+                            xValue: new[] {"A", "B", "C"},
+                            yValues: new[] {"1", "2","3"})
+                        .Write();
+
+                }
+            </div> *@
             
         </div>
     </div>

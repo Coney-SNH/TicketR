@@ -57,6 +57,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var item in ViewBag.UpcomingSSPs)
+                    {
+                        <tr>
+                            <td>@item.Series.SeriesName</td>
+                            <td>@item.Series.Event.EventName</td>
+                            <td>@item.Series.CombinedTime.ToString("MM/dd/yyyy @ hh:mm tt")</td>
+                            <td>$@Math.Round(item.Series.TicketPrice, 2)</td>
+                            <td>@item.Seat.SeatNumber</td>
+                            <td>
+                                <form asp-action="RefundTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId" method="Post">
+                                    <input type="submit" value="Refund">
+                                </form>
+                            </td>
+                            <td><a asp-action="PrintTicket2" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId">Print Ticket</a></td>
+                        </tr>
+                    }
+                </tbody>
+                @* <tbody>
                     @foreach (var item in ViewBag.UpcomingPatronSeries)
                     {
                         <tr>
@@ -73,7 +91,7 @@
                             <td><a asp-action="PrintTicket" asp-controller="Patron" asp-route-PatronId="@Model.PatronId" asp-route-SeriesId="@item.Series.SeriesId">Print Ticket</a></td>
                         </tr>
                     }
-                </tbody>
+                </tbody> *@
             </table>
         </div>
     </div>

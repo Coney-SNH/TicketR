@@ -95,7 +95,8 @@ body {
   width: 800px;
   /* padding: 10px, 0px, 0px, 10px; */
   background-color: rgb(109, 160, 109);
-  background-image: url(/wwwroot/img/green-texture.jpg);
+  background-image: linear-gradient(to right, #235423, #6da06d);
+  /* background-image: url(/wwwroot/img/green-texture.jpg); */
 }
 
 .leftTicket {

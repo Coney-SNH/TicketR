@@ -14432,6 +14432,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Patron\\PrintTicket2.cshtml",
+      "TargetPath": "Views\\Patron\\PrintTicket2.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Desktop\\Dojo_Assignments\\Projects\\Ticketing Service\\Ticketr\\Views\\Seat\\SelectSeat.cshtml",
       "TargetPath": "Views\\Seat\\SelectSeat.cshtml",
       "FileKind": "mvc"

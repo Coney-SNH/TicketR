@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
+
 namespace Ticketr.Controllers
 {
     public class HomeController : Controller
@@ -31,7 +32,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -169,6 +170,13 @@ namespace Ticketr.Controllers
             
             ViewBag.TotalSales = totalTicketsPrice;
             ViewBag.TotalDonations = totalDonations;
+
+            // var MyChart = new Chart(width: 200, height: 200)
+            //     .AddTitle("Test")
+            //     .AddSeries(chartType: "column",
+            //         xValue: new[] {"A", "B", "C"},
+            //         yValues: new[] {"1", "2","3"})
+            //     .Write();
 
             ViewBag.TheatreLayout = "/Images/SeatingChartCrop.png";
 

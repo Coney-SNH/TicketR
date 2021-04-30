@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -113,14 +113,6 @@ namespace Ticketr.Controllers
                 newSeries.SeriesTime.Second
             );
 
-            // string[] AllSeats = {"A1","A2","A3","A4","A5","A6","A7","A8","A9","A10","A11","B1","B2","B3","B4","B5","B6","B7","B8","B9","B10","B11","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","E1","E2","E3","E4","E5","E6","E7","E8","E9","E10","E11"};
-            // string[] GoldSection = {"A4","A5","A6","A7","A8","B4","B5","B6","B7","B8","C5","C6","C7"};
-            // string[] SectionA = {"A2","A3","A9","A10","B2","B3","B9","B10","C2","C3","C4","C8","C9","C10","D3","D4","D5","D6","D7","D8","D9","E4","E5","E6","E7","E8"};
-            // string[] SectionB = {"A1","A11","B1","B11","C1","C11","D1","D2","D10","D11","E1","E2","E3","E9","E10","E11"};
-
-            // newSeries.AvailableSeats = AllSeats;
-
-
             db.Series.Add(newSeries);
             db.SaveChanges();
 
@@ -133,6 +125,11 @@ namespace Ticketr.Controllers
             if(!isLoggedIn)
             {
                 return RedirectToAction("Index");
+            }
+            User curUser = db.Users.FirstOrDefault(i => i.UserId == (int)uid);
+            if(curUser.AccessLevel == "NewEmployee" )
+            {
+                return RedirectToAction("Dashboard","Home");
             }
             List<Series> allSeries = db.Series.Include(e => e.Event).OrderBy(t => t.CombinedTime).ToList();
             ViewBag.AllSeries = allSeries;
@@ -152,6 +149,17 @@ namespace Ticketr.Controllers
             {
                 return RedirectToAction("Dashboard","Home");
             }
+
+            List<SeriesSeatPatronRel> allAttending = db.SeriesSeatPatronRels
+                .Include(p => p.Patron)
+                .Include(ser => ser.Series)
+                    .ThenInclude(serE => serE.Event)
+                .Include(sea => sea.Seat)
+                .Where(s => s.SeriesId == SeriesId)
+                .OrderBy(seat => seat.Seat.SeatNumber)
+                .ToList();
+            
+            ViewBag.AllAttending = allAttending;
 
             return View("SeriesDetails", curSeries);
         }

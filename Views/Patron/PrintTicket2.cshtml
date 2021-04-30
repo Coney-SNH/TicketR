@@ -1,0 +1,51 @@
+@model List<SeriesSeatPatronRel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="BackgroundWrapper">
+        <div class="InnerWrapper">
+            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <h1>Ticket for @ViewBag.curPatron.FirstName @ViewBag.curPatron.LastName</h1>
+            <p></p>
+            @foreach (var item in Model)
+            {
+                <br>
+                <div class="mainTicket" style="background-image: url(@ViewBag.TicketImage)">
+                    <div class="leftTicket">
+                        <h6 style="text-align:center;">CodingDojo Productions</h6>
+                        <p style="text-align:center;">presents</p>
+                        <h3 style="text-align:center;">@item.Series.Event.EventName</h3>
+                        <h6 style="text-align:center;">@item.Series.CombinedTime.ToString("ddd, MMM dd, yyyy @ hh:mm tt")</h6>
+                        <h6 style="text-align:center;">@item.Series.SeriesVenue</h6>
+                        <br>
+                        @* <br> *@
+                        @* <h3 style="display: inline-block; width: 280px;">@ViewBag.WhyNot</h3> *@
+                        <h3 style="display: inline-block; width: 280px;">Seat Number: @item.Seat.SeatNumber</h3>
+                        @* <h3 style="display: inline-block; width: 280px;">Patron Seat</h3> *@
+                        <h3 style="display: inline-block; text-align:right; width: 280px" >$@Math.Round(item.Series.TicketPrice,2)</h3>
+                    </div>
+                    <div class="rightTicket">
+                        <p class="stubText">|| || ||||| || | | | || ||| | || || ||||| || | | | || ||| |</p>                    
+                    </div>
+                    <div class="rightTicket">
+                        <p class="stubText">@item.SeriesSeatPatronId</p>                    
+                    </div>
+                    <div class="rightTicket">
+                        <p class="stubText">@item.Series.CombinedTime.ToString("ddd, MMM dd, yyyy @ hh:mm tt")</p>                    
+                    </div>
+                    <div class="rightTicket">
+                        <p class="stubText">Seat Number: @item.Seat.SeatNumber</p>                    
+                    </div>
+                </div>
+                <br>
+            }
+        </div>
+    </div>
+</body>
+</html>

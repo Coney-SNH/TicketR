@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -111,6 +111,11 @@ namespace Ticketr.Controllers
             if(!isLoggedIn)
             {
                 return RedirectToAction("Index");
+            }
+            User curUser = db.Users.FirstOrDefault(i => i.UserId == (int)uid);
+            if(curUser.AccessLevel != "HeadAdmin")
+            {
+                return RedirectToAction("Dashboard","Home");
             }
             List<Event> allEvents = db.Events.OrderBy(d => d.StartDate).ToList();
             // List<Event> allEvents = db.Events.Where(t => t.EndDate <= DateTime.Now).ToList();

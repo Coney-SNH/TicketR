@@ -31,7 +31,7 @@ namespace Ticketr.Controllers
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
-                // HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
+                HttpContext.Session.SetInt32("UserId", 1); //DELETE AFTERWARDS!!!!
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
                 // //////////////////////////////////////////////////////////////////
@@ -182,6 +182,19 @@ namespace Ticketr.Controllers
 
             ViewBag.PatronDonations = totalDonations;
 
+            List<SeriesSeatPatronRel> allSSPs = db.SeriesSeatPatronRels
+                .Include(s => s.Series)
+                    .ThenInclude(ps => ps.PatronsWatched)
+                .Include(s => s.Series)
+                    .ThenInclude(se => se.Event)
+                .Include(p => p.Patron)
+                .Include(s => s.Seat)
+                .Where(p => p.PatronId == PatronId)
+                .OrderBy(s => s.Series.CombinedTime)
+                .ToList();
+
+            ViewBag.AllSSPs = allSSPs;
+
             return View("PatronDetails", curPatron);
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -270,7 +283,18 @@ namespace Ticketr.Controllers
                 .Where(st => st.Series.SeriesDate >= DateTime.Now)
                 .OrderBy(st => st.Series.CombinedTime)
                 .ToList();
+
+            List<SeriesSeatPatronRel> upcomingSSPs = db.SeriesSeatPatronRels
+                .Include(p => p.Patron)
+                .Include(s => s.Series)
+                    .ThenInclude(se => se.Event)
+                .Include(s => s.Seat)
+                .Where(pi => pi.PatronId == PatronId)
+                .OrderBy(st => st.Series.CombinedTime)
+                .ToList();
+
                 
+            ViewBag.UpcomingSSPs = upcomingSSPs;
             ViewBag.UpcomingPatronSeries = upcomingPatronSeries;
 
             return View("PurchaseTickets", curPatron);
@@ -313,6 +337,7 @@ namespace Ticketr.Controllers
                 return RedirectToAction("Dashboard", "Home");
             }
             curSeries.TicketsAvailable += 1;
+            curSeries.TicketsSold -= 1;
             db.Series.Update(curSeries);
             db.PatronSeriesRels.Remove(curPSR);
             db.SeriesSeatPatronRels.Remove(curSSPR);
@@ -365,6 +390,13 @@ namespace Ticketr.Controllers
                 .Include(s => s.Series)
                     .ThenInclude(se => se.Event)
                 .FirstOrDefault(i => i.PatronId == PatronId && i.SeriesId == SeriesId);
+            
+            List<PatronSeriesRel> curPatronSeriesRels = db.PatronSeriesRels
+                .Include(p => p.Patron)
+                .Include(s => s.Series)
+                    .ThenInclude(se => se.Event)
+                .Where(i => i.PatronId == PatronId && i.SeriesId == SeriesId)
+                .ToList();
 
             if(curPatronSeriesRel == null)
             {
@@ -372,10 +404,30 @@ namespace Ticketr.Controllers
             }
             ViewBag.TicketImage = "/wwwroot/img/green-texture.jpg";
 
+            List<SeriesSeatPatronRel> curSeats = db.SeriesSeatPatronRels.Include(s => s.Seat).Include(p => p.Patron).Include(ser => ser.Series).Where(s => s.PatronId == PatronId && s.SeriesId == SeriesId).ToList();
             SeriesSeatPatronRel curSeat = db.SeriesSeatPatronRels.Include(s => s.Seat).FirstOrDefault(s => s.PatronId == PatronId && s.SeriesId == SeriesId);
             ViewBag.curSeat = curSeat;
-            ViewBag.WhyNot = "Whynot?";
             return View("PrintTicket", curPatronSeriesRel);
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpGet("patron/test-print-ticket/{PatronId}/{SeriesId}")]
+        public IActionResult PrintTicket2(int PatronId, int SeriesId)
+        {
+            List<SeriesSeatPatronRel> allPatronSeriesTickets = db.SeriesSeatPatronRels
+            .Include(s => s.Series)
+                .ThenInclude(e => e.Event)
+            .Include(p=> p.Patron)
+            .Include(s => s.Seat)
+            .Where(s => s.SeriesId == SeriesId && s.PatronId == PatronId)
+            .ToList();
+            if(allPatronSeriesTickets == null)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+            Patron curPatron = db.Patrons.FirstOrDefault(p => p.PatronId == PatronId);
+            ViewBag.curPatron = curPatron;
+
+            return View("PrintTicket2", allPatronSeriesTickets);
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         [HttpGet("patron/search/")]

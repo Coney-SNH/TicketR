@@ -9,7 +9,10 @@
 <body>
     <div class="BackgroundWrapper">
         <div class="InnerWrapper">
-            <p><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+            <form asp-controller="Home" asp-action="Logout" method="Post">
+                <p style="display: inline-block;"><a asp-controller="Home" asp-action="Dashboard">Dashboard</a> | <a asp-action="ViewAll" asp-controller="Event">View all events</a> | <a asp-action="ViewAllSeries" asp-controller="Series">View all Series</a> | <a asp-action="ViewAllPatrons" asp-controller="Patron">View all Patrons</a> </p>
+                <input style="margin-left: 300px;" type="submit" value="logout">
+            </form>
             <partial name="_NewSeriesPartial"/>
             <table class="table" style="display: inline-block; vertical-align:top; width: 500px;">
                 <thead class="thead-dark">
