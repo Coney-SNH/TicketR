@@ -24,7 +24,7 @@
             <p>Total discounts: $@Math.Round(Model.TotalDiscounts,2)</p>
             <p>Total Net Sales: $@Math.Round(Model.NetSales, 2)</p>
             <a asp-action="EditSeries" asp-controller="Series" asp-route-SeriesId="@Model.SeriesId">Edit</a>
-
+            <p><button><a asp-controller="Patron" asp-action="ViewAllPatrons">Add Patrons to Series</a></button></p>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
